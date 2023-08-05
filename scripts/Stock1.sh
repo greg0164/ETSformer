@@ -1,5 +1,5 @@
 python -u run.py \
-  --root_path ./dataset/stock1/ \
+  --root_path ./dataset/Stock1/ \
   --data_path stock1.csv \
   --model_id stock1 \
   --model ETSformer \
