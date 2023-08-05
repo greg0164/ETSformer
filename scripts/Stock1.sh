@@ -4,7 +4,9 @@ python -u run.py \
   --model_id stock1 \
   --model ETSformer \
   --data stock1 \
-  --features S \
+  --features MS \
+  --target Close \
+  --freq d \
   --seq_len 96 \
   --pred_len 7 \
   --e_layers 2 \
