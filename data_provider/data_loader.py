@@ -231,9 +231,11 @@ class Dataset_Custom(Dataset):
         cols.remove('date')
         df_raw = df_raw[['date'] + cols + [self.target]]
         # print(cols)
-        num_train = int(len(df_raw) * 0.7)
-        num_test = int(len(df_raw) * 0.2)
+        # rig to IBM train and test set
+        num_train = int(len(df_raw) * 0.815)
+        num_test = int(len(df_raw) * 0.0925)
         num_vali = len(df_raw) - num_train - num_test
+        print("num_train " + num_train + " num_test " + num_test + " num_vali " + num_vali)
         border1s = [0, num_train - self.seq_len, len(df_raw) - num_test - self.seq_len]
         border2s = [num_train, num_train + num_vali, len(df_raw)]
         border1 = border1s[self.set_type]
