@@ -229,7 +229,7 @@ class Exp_Main(Exp_Basic):
             os.makedirs(folder_path)
 
         mae, mse, rmse, mape, mspe = metric(preds, trues)
-        print('mse:{}, mae:{}'.format(mse, mae))
+        print('mse:{}, mae:{}, mape:{}'.format(mse, mae, mape))
 
         np.save(folder_path + f'{data}_metrics.npy', np.array([mae, mse, rmse, mape, mspe]))
 
