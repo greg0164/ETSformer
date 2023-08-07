@@ -44,7 +44,7 @@ def data_provider(args, flag):
     print(flag, len(data_set))
     print("after print flag, ..., shuffle_flag =")
     print(shuffle_flag)
-    print("batch_size"+str(batch_size))
+    print("batch_size "+str(batch_size))
     data_loader = DataLoader(
         data_set,
         batch_size=batch_size,
