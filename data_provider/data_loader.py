@@ -239,7 +239,9 @@ class Dataset_Custom(Dataset):
         num_vali = len(df_raw) - num_train - num_test
         print("num_train " + str(num_train) + " num_test " + str(num_test) + " num_vali " + str(num_vali))
         border1s = [0, num_train - self.seq_len, len(df_raw) - num_test - self.seq_len]
+        print("border1s "+str(border1s))
         border2s = [num_train, num_train + num_vali, len(df_raw)]
+        print("border2s "+str(border2s))
         border1 = border1s[self.set_type]
         border2 = border2s[self.set_type]
 
