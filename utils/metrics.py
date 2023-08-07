@@ -24,6 +24,7 @@ def RMSE(pred, true):
 
 
 def MAPE(pred, true):
+    print(pred)
     return np.mean(np.abs((pred - true) / true))
 
 
