@@ -210,7 +210,7 @@ class Dataset_Custom(Dataset):
 
         self.features = features
         self.target = target
-        self.scale = scale
+        self.scale = False # hardcode override default parameter scale=True in Dataset_Custom
         self.timeenc = timeenc
         self.freq = freq
 
