@@ -56,8 +56,9 @@ class ETSformer(nn.Module):
         # Decoder
         self.decoder = Decoder(
             [
+                # hardwiring what was configs.c_out to 1 since we are predicting 1 value
                 DecoderLayer(
-                    configs.d_model, configs.n_heads, configs.c_out, configs.pred_len,
+                    configs.d_model, configs.n_heads, 1, configs.pred_len,
                     dropout=configs.dropout,
                     output_attention=configs.output_attention,
                 ) for _ in range(configs.d_layers)
