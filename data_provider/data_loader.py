@@ -224,14 +224,14 @@ class Dataset_Custom(Dataset):
                                           self.data_path))
 
         '''
-        df_raw.columns: ['Date', ...(other features), target feature]
+        df_raw.columns: ['date', ...(other features), target feature]
         '''
         cols = list(df_raw.columns)
         print("self.target")
         print(self.target)
         cols.remove(self.target)
-        cols.remove('Date')
-        df_raw = df_raw[['Date'] + cols + [self.target]]
+        cols.remove('date')
+        df_raw = df_raw[['date'] + cols + [self.target]]
         # print(cols)
         # rig to IBM train and test set, now make train set, much longer 9-7-23
         # num_train = int(len(df_raw) * 0.815)
@@ -265,8 +265,8 @@ class Dataset_Custom(Dataset):
         else:
             data = df_data.values
 
-        df_stamp = df_raw[['Date']][border1:border2]
-        df_stamp['Date'] = pd.to_datetime(df_stamp.date)
+        df_stamp = df_raw[['date']][border1:border2]
+        df_stamp['date'] = pd.to_datetime(df_stamp.date)
         print("self.timeenc")
         print(self.timeenc)
         if self.timeenc == 0:
@@ -274,9 +274,9 @@ class Dataset_Custom(Dataset):
             df_stamp['day'] = df_stamp.date.apply(lambda row: row.day, 1)
             df_stamp['weekday'] = df_stamp.date.apply(lambda row: row.weekday(), 1)
             df_stamp['hour'] = df_stamp.date.apply(lambda row: row.hour, 1)
-            data_stamp = df_stamp.drop(['Date'], 1).values
+            data_stamp = df_stamp.drop(['date'], 1).values
         elif self.timeenc == 1:
-            data_stamp = time_features(pd.to_datetime(df_stamp['Date'].values), freq=self.freq)
+            data_stamp = time_features(pd.to_datetime(df_stamp['date'].values), freq=self.freq)
             data_stamp = data_stamp.transpose(1, 0)
 
         self.data_x = data[border1:border2]
