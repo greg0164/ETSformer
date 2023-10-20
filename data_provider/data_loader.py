@@ -234,6 +234,9 @@ class Dataset_Custom(Dataset):
         cols.remove(self.target)
         cols.remove('date')
         df_raw = df_raw[['date'] + cols + [self.target]]
+        # Cast the cols and self.target columns to float
+        for column in cols + [self.target]:
+            df_raw[column] = df_raw[column].astype(float)
         # print(cols)
         # rig to IBM train and test set, now make train set, much longer 9-7-23
         num_train = int(len(df_raw) * 0.815)
