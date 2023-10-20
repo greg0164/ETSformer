@@ -45,6 +45,8 @@ def data_provider(args, flag):
     print("after print flag, ..., shuffle_flag =")
     print(shuffle_flag)
     print("batch_size "+str(batch_size))
+    print("right before call to torch, data_set=")
+    print(data_set)
     data_loader = DataLoader(
         data_set,
         batch_size=batch_size,
