@@ -115,6 +115,7 @@ class Exp_Main(Exp_Basic):
 
         time_now = time.time()
 
+        print(train_loader)
         train_steps = len(train_loader)
         print(f'train_steps={train_steps}')
         early_stopping = EarlyStopping(patience=self.args.patience, verbose=True)
