@@ -234,13 +234,13 @@ class Dataset_Custom(Dataset):
         df_raw = df_raw[['date'] + cols + [self.target]]
         # print(cols)
         # rig to IBM train and test set, now make train set, much longer 9-7-23
-        # num_train = int(len(df_raw) * 0.815)
-        # num_test = int(len(df_raw) * 0.0925)
+        num_train = int(len(df_raw) * 0.815)
+        num_test = int(len(df_raw) * 0.0925)
         # num_train = int(len(df_raw) * 0.94017)
         # num_test = int(len(df_raw) * 0.029914)
         # now changing from first of 1999 to first of 1997 for training set
-        num_train = int(len(df_raw) * 0.95506)
-        num_test = int(len(df_raw) * 0.022469)
+        # num_train = int(len(df_raw) * 0.95506)
+        # num_test = int(len(df_raw) * 0.022469)
         
         num_vali = len(df_raw) - num_train - num_test
         print("num_train " + str(num_train) + " num_test " + str(num_test) + " num_vali " + str(num_vali))
