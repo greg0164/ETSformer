@@ -195,6 +195,7 @@ class Dataset_Custom(Dataset):
                  target='OT', scale=True, timeenc=0, freq='h'):
         # size [seq_len, label_len, pred_len]
         # info
+        print(f'size={size[0]},{size[1]},{size[2]}')
         if size == None:
             self.seq_len = 24 * 4 * 4
             self.label_len = 24 * 4
@@ -226,6 +227,7 @@ class Dataset_Custom(Dataset):
         '''
         df_raw.columns: ['date', ...(other features), target feature]
         '''
+        print(df_raw)
         cols = list(df_raw.columns)
         print("self.target")
         print(self.target)
