@@ -118,6 +118,12 @@ class Exp_Main(Exp_Basic):
         print(train_loader)
         train_steps = len(train_loader)
         print(f'train_steps={train_steps}')
+        print(f'len train_data={len(train_data)}')
+        print(f'batch_size={train_loader.batch_size}')
+        print('before iterating the train loader')
+        iter(train_loader).next()
+        print('after iterating the train loader')
+
         early_stopping = EarlyStopping(patience=self.args.patience, verbose=True)
 
         model_optim = self._select_optimizer()
