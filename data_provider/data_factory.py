@@ -41,14 +41,14 @@ def data_provider(args, flag):
         timeenc=timeenc,
         freq=freq
     )
-    print(flag, len(data_set))
-    print("after print flag, ..., shuffle_flag =")
-    print(shuffle_flag)
-    print("batch_size "+str(batch_size))
-    print("right before call to torch, data_set=")
-    print(data_set)
-    print("args.num_workers")
-    print(args.num_workers)
+    # print(flag, len(data_set))
+    # print("after print flag, ..., shuffle_flag =")
+    # print(shuffle_flag)
+    # print("batch_size "+str(batch_size))
+    # print("right before call to torch, data_set=")
+    # print(data_set)
+    # print("args.num_workers")
+    # print(args.num_workers)
     data_loader = DataLoader(
         data_set,
         batch_size=batch_size,
