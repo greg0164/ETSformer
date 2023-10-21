@@ -195,7 +195,7 @@ class Dataset_Custom(Dataset):
                  target='OT', scale=True, timeenc=0, freq='h'):
         # size [seq_len, label_len, pred_len]
         # info
-        print(f'size={size[0]},{size[1]},{size[2]}')
+        # print(f'size={size[0]},{size[1]},{size[2]}')
         if size == None:
             self.seq_len = 24 * 4 * 4
             self.label_len = 24 * 4
@@ -235,10 +235,10 @@ class Dataset_Custom(Dataset):
         '''
         df_raw.columns: ['date', ...(other features), target feature]
         '''
-        print(df_raw)
+        # print(df_raw)
         cols = list(df_raw.columns)
-        print("self.target")
-        print(self.target)
+        # print("self.target")
+        # print(self.target)
         cols.remove(self.target)
         cols.remove('date')
         df_raw = df_raw[['date'] + cols + [self.target]]
@@ -256,11 +256,11 @@ class Dataset_Custom(Dataset):
         # num_test = int(len(df_raw) * 0.022469)
         
         num_vali = len(df_raw) - num_train - num_test
-        print("num_train " + str(num_train) + " num_test " + str(num_test) + " num_vali " + str(num_vali))
+        # print("num_train " + str(num_train) + " num_test " + str(num_test) + " num_vali " + str(num_vali))
         border1s = [0, num_train - self.seq_len, len(df_raw) - num_test - self.seq_len]
-        print("border1s "+str(border1s))
+        # print("border1s "+str(border1s))
         border2s = [num_train, num_train + num_vali, len(df_raw)]
-        print("border2s "+str(border2s))
+        # print("border2s "+str(border2s))
         border1 = border1s[self.set_type]
         border2 = border2s[self.set_type]
 
@@ -269,8 +269,8 @@ class Dataset_Custom(Dataset):
             df_data = df_raw[cols_data]
         elif self.features == 'S':
             df_data = df_raw[[self.target]]
-        print("self.scale")
-        print(self.scale)
+        # print("self.scale")
+        # print(self.scale)
         if self.scale:
             train_data = df_data[border1s[0]:border2s[0]]
             self.scaler.fit(train_data.values)
@@ -280,8 +280,8 @@ class Dataset_Custom(Dataset):
 
         df_stamp = df_raw[['date']][border1:border2]
         df_stamp['date'] = pd.to_datetime(df_stamp.date)
-        print("self.timeenc")
-        print(self.timeenc)
+        # print("self.timeenc")
+        # print(self.timeenc)
         if self.timeenc == 0:
             df_stamp['month'] = df_stamp.date.apply(lambda row: row.month, 1)
             df_stamp['day'] = df_stamp.date.apply(lambda row: row.day, 1)
