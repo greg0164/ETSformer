@@ -221,8 +221,16 @@ class Dataset_Custom(Dataset):
 
     def __read_data__(self):
         self.scaler = StandardScaler()
-        df_raw = pd.read_csv(os.path.join(self.root_path,
-                                          self.data_path))
+        # df_raw = pd.read_csv(os.path.join(self.root_path,
+        #                                  self.data_path))
+        # Load just the first row to get the number of columns
+        n_cols = len(pd.read_csv(os.path.join(self.root_path, self.data_path), nrows=1).columns)
+
+        # Create dtype dictionary for columns 1 to n-1
+        dtype_dict = {i: float for i in range(1, n_cols)}
+
+        # Read the CSV with the specified dtype
+        df_raw = pd.read_csv(os.path.join(self.root_path, self.data_path), dtype=dtype_dict)
 
         '''
         df_raw.columns: ['date', ...(other features), target feature]
