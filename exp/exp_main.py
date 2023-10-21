@@ -115,14 +115,14 @@ class Exp_Main(Exp_Basic):
 
         time_now = time.time()
 
-        print(train_loader)
+        # print(train_loader)
         train_steps = len(train_loader)
-        print(f'train_steps={train_steps}')
-        print(f'len train_data={len(train_data)}')
-        print(f'batch_size={train_loader.batch_size}')
-        print('before iterating the train loader')
-        iter(train_loader).next()
-        print('after iterating the train loader')
+        # print(f'train_steps={train_steps}')
+        # print(f'len train_data={len(train_data)}')
+        # print(f'batch_size={train_loader.batch_size}')
+        # print('before iterating the train loader')
+        # iter(train_loader).next()
+        # print('after iterating the train loader')
 
         early_stopping = EarlyStopping(patience=self.args.patience, verbose=True)
 
@@ -136,7 +136,7 @@ class Exp_Main(Exp_Basic):
             self.model.train()
             epoch_time = time.time()
             for i, (batch_x, batch_y, batch_x_mark, batch_y_mark) in enumerate(train_loader):
-                print(f'i {i} batch_x {batch_x} batch_y {batch_y} batch_x_mark {batch_x_mark} batch_y_mark {batch_y_mark}')
+                # print(f'i {i} batch_x {batch_x} batch_y {batch_y} batch_x_mark {batch_x_mark} batch_y_mark {batch_y_mark}')
                 iter_count += 1
                 model_optim.zero_grad()
                 batch_x = batch_x.float().to(self.device)
@@ -239,6 +239,17 @@ class Exp_Main(Exp_Basic):
 
         mae, mse, rmse, mape, mspe = metric(preds, trues)
         print('mse:{}, mae:{}, mape:{}'.format(mse, mae, mape))
+        # Compare signs and store as Boolean values
+        sign_comparison = np.sign(preds) == np.sign(trues)
+
+        # Count the number of False elements
+        count_false = np.count_nonzero(~sign_comparison)  # ~ is used to invert the Boolean array
+
+        # Calculate the percentage of False elements
+        percentage_false = (count_false / len(sign_comparison)) * 100
+
+        print("Number of False Elements:", count_false)
+        print("Percentage of False Elements:", percentage_false, "%")
 
         np.save(folder_path + f'{data}_metrics.npy', np.array([mae, mse, rmse, mape, mspe]))
 
