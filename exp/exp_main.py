@@ -227,10 +227,10 @@ class Exp_Main(Exp_Basic):
 
         preds = np.array(preds)
         trues = np.array(trues)
-        print('test shape:', preds.shape, trues.shape)
+        # print('test shape:', preds.shape, trues.shape)
         preds = preds.reshape(-1, preds.shape[-2], preds.shape[-1])
         trues = trues.reshape(-1, trues.shape[-2], trues.shape[-1])
-        print('test shape:', preds.shape, trues.shape)
+        # print('test shape:', preds.shape, trues.shape)
 
         # result save
         folder_path = './results/' + setting + '/'
@@ -239,6 +239,35 @@ class Exp_Main(Exp_Basic):
 
         mae, mse, rmse, mape, mspe = metric(preds, trues)
         print('mse:{}, mae:{}, mape:{}'.format(mse, mae, mape))
+        # Calculate the number of elements for the top and bottom 5%
+        num_elements = len(trues)
+        top_5_percent_count = int(0.05 * num_elements)
+        bottom_5_percent_count = int(0.05 * num_elements)
+
+        # Get the sorted indices
+        sorted_indices = np.argsort(trues)
+
+        # Get the indices of the top and bottom 5% of values in trues
+        top_5_percent_indices = sorted_indices[-top_5_percent_count:]
+        bottom_5_percent_indices = sorted_indices[:bottom_5_percent_count]
+
+        # Calculate the MAPE for the top and bottom 5%
+        mape_top_5_percent = np.abs((preds[top_5_percent_indices] - trues[top_5_percent_indices]) / trues[top_5_percent_indices]) * 100
+        mape_bottom_5_percent = np.abs((preds[bottom_5_percent_indices] - trues[bottom_5_percent_indices]) / trues[bottom_5_percent_indices]) * 100
+
+        # Calculate the sign match for the top and bottom 5%
+        top_sign_match = np.sign(preds[top_5_percent_indices]) == np.sign(trues[top_5_percent_indices])
+        bottom_sign_match = np.sign(preds[bottom_5_percent_indices]) == np.sign(trues[bottom_5_percent_indices])
+
+        # Calculate the percentage of sign match for the top and bottom 5%
+        percentage_top_sign_match = (np.sum(top_sign_match) / top_5_percent_count) * 100 if top_5_percent_count > 0 else 0
+        percentage_bottom_sign_match = (np.sum(bottom_sign_match) / bottom_5_percent_count) * 100 if bottom_5_percent_count > 0 else 0
+
+        # Print the MAPE and sign match percentages
+        print("MAPE for Top 5%:", mape_top_5_percent)
+        print("MAPE for Bottom 5%:", mape_bottom_5_percent)
+        print("Percentage of Sign Match for Top 5%:", percentage_top_sign_match, "%")
+        print("Percentage of Sign Match for Bottom 5%:", percentage_bottom_sign_match, "%")
         # Compare signs and store as Boolean values
         sign_comparison = np.sign(preds) == np.sign(trues)
 
@@ -248,8 +277,8 @@ class Exp_Main(Exp_Basic):
         # Calculate the percentage of False elements
         percentage_false = (count_false / len(sign_comparison)) * 100
 
-        print("Number of False Elements:", count_false)
-        print("Percentage of False Elements:", percentage_false, "%")
+        print("Number of sign mismatched elements:", count_false)
+        print("Percentage of sign mismatch:", percentage_false, "%")
 
         np.save(folder_path + f'{data}_metrics.npy', np.array([mae, mse, rmse, mape, mspe]))
 
