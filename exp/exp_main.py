@@ -242,6 +242,8 @@ class Exp_Main(Exp_Basic):
         mae, mse, rmse, mape, mspe = metric(preds, trues)
         print('mse:{}, mae:{}, mape:{}'.format(mse, mae, mape))
         # Calculate the number of elements for the top and bottom 5%
+        preds=preds.reshape(-1)
+        trues=trues.reshape(-1)
         num_elements = len(trues)
         top_5_percent_count = int(0.05 * num_elements)
         bottom_5_percent_count = int(0.05 * num_elements)
