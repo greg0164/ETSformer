@@ -258,8 +258,8 @@ class Exp_Main(Exp_Basic):
         print(f'bottom_5_percent_indices={bottom_5_percent_indices}')
 
         # Calculate the MAPE for the top and bottom 5%
-        mape_top_5_percent = np.abs((preds[top_5_percent_indices] - trues[top_5_percent_indices]) / trues[top_5_percent_indices]) * 100
-        mape_bottom_5_percent = np.abs((preds[bottom_5_percent_indices] - trues[bottom_5_percent_indices]) / trues[bottom_5_percent_indices]) * 100
+        mape_top_5_percent = np.mean(np.abs((preds[top_5_percent_indices] - trues[top_5_percent_indices]) / trues[top_5_percent_indices])) * 100
+        mape_bottom_5_percent = np.mean(np.abs((preds[bottom_5_percent_indices] - trues[bottom_5_percent_indices]) / trues[bottom_5_percent_indices])) * 100
 
         # Calculate the sign match for the top and bottom 5%
         top_sign_match = np.sign(preds[top_5_percent_indices]) == np.sign(trues[top_5_percent_indices])
