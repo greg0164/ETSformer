@@ -251,7 +251,9 @@ class Exp_Main(Exp_Basic):
 
         # Get the indices of the top and bottom 5% of values in trues
         top_5_percent_indices = sorted_indices[-top_5_percent_count:]
+        print(f'top_5_percent_indices={top_5_percent_indices}')
         bottom_5_percent_indices = sorted_indices[:bottom_5_percent_count]
+        print(f'bottom_5_percent_indices={bottom_5_percent_indices}')
 
         # Calculate the MAPE for the top and bottom 5%
         mape_top_5_percent = np.abs((preds[top_5_percent_indices] - trues[top_5_percent_indices]) / trues[top_5_percent_indices]) * 100
