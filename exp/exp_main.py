@@ -227,10 +227,12 @@ class Exp_Main(Exp_Basic):
 
         preds = np.array(preds)
         trues = np.array(trues)
-        # print('test shape:', preds.shape, trues.shape)
+        print('test shape:', preds.shape, trues.shape)
         preds = preds.reshape(-1, preds.shape[-2], preds.shape[-1])
         trues = trues.reshape(-1, trues.shape[-2], trues.shape[-1])
-        # print('test shape:', preds.shape, trues.shape)
+        print('test shape:', preds.shape, trues.shape)
+        print(preds);
+        print(trues);
 
         # result save
         folder_path = './results/' + setting + '/'
