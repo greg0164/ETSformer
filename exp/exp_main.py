@@ -227,12 +227,12 @@ class Exp_Main(Exp_Basic):
 
         preds = np.array(preds)
         trues = np.array(trues)
-        print('test shape:', preds.shape, trues.shape)
+        # print('test shape:', preds.shape, trues.shape)
         preds = preds.reshape(-1, preds.shape[-2], preds.shape[-1])
         trues = trues.reshape(-1, trues.shape[-2], trues.shape[-1])
-        print('test shape:', preds.shape, trues.shape)
-        print(preds);
-        print(trues);
+        # print('test shape:', preds.shape, trues.shape)
+        print(preds[:10]);
+        print(trues[:10]);
 
         # result save
         folder_path = './results/' + setting + '/'
@@ -275,7 +275,7 @@ class Exp_Main(Exp_Basic):
         # print("MAPE for Bottom 5%:", mape_bottom_5_percent)
         # print("Percentage of Sign Match for Top 5%:", percentage_top_sign_match, "%")
         # print percentage of sign match for bottom 5%
-        print("Percentage of Sign Match (% time directionally correct):", np.sum(trues == preds)/num_elements, "%")
+        print("Percentage of Sign Match (% time directionally correct):", np.sum(((trues > 0.5) & (preds > 0.5)) | ((trues <= 0.5) & (preds <= 0.5)))/num_elements, "%")
         # Compare signs and store as Boolean values
         # sign_comparison = np.sign(preds) == np.sign(trues)
 
