@@ -271,13 +271,18 @@ class Dataset_Custom(Dataset):
             df_data = df_raw[[self.target]]
         # print("self.scale")
         # print(self.scale)
+        
+        # save off the sign of change column
+        saved_column = df_data['Positive Return'].copy()
         if self.scale:
             train_data = df_data[border1s[0]:border2s[0]]
             self.scaler.fit(train_data.values)
             data = self.scaler.transform(df_data.values)
         else:
             data = df_data.values
-
+        # put back the raw sign of change column
+        data['Positive Return']=saved_column
+        
         df_stamp = df_raw[['date']][border1:border2]
         df_stamp['date'] = pd.to_datetime(df_stamp.date)
         # print("self.timeenc")
